@@ -1,670 +1,168 @@
 @import "tailwindcss";
 
-/* ========================================
-   WANYAM — Thai Horror Game Website
-   Design System & Global Styles
-   ======================================== */
-
-/* --- CSS Custom Properties --- */
-:root {
-  --color-blood: #8b0000;
-  --color-blood-bright: #dc143c;
-  --color-blood-glow: #ff1a1a;
-  --color-dark: #0a0a0a;
-  --color-dark-card: #111111;
-  --color-dark-surface: #1a1a1a;
-  --color-dark-border: #2a2a2a;
-  --color-fog: rgba(255, 255, 255, 0.03);
-  --color-text-primary: #e8e8e8;
-  --color-text-secondary: #888888;
-  --color-text-muted: #555555;
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-horror: "Cinzel", "Times New Roman", serif;
+  --color-ink: #070707;
+  --color-ink-elevated: #0e0e0e;
+  --color-blood-dark: #4a0808;
+  --color-blood: #5c0a0a;
+  --color-blood-deep: #6b0f0f;
+  --color-blood-glow: #8b1515;
+  --color-smoke: #888888;
+  --color-ash: #666666;
 }
 
-/* --- Base Reset & Body --- */
-* {
-  margin: 0;
-  padding: 0;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-blood) var(--color-dark);
-}
-
-section {
-  scroll-margin-top: 96px;
+  scrollbar-color: var(--color-blood-deep) var(--color-ink);
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--color-dark);
-  color: var(--color-text-primary);
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-ink);
+  color: #ddd8d8;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-dark);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-blood);
-  border-radius: 3px;
-}
-
-/* --- Selection Styling --- */
 ::selection {
   background: var(--color-blood);
-  color: white;
+  color: #fff;
 }
 
-/* --- VHS Grain Overlay --- */
-.vhs-overlay {
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* ── Horror typography ── */
+.horror-title {
+  font-family: var(--font-horror);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: var(--color-blood);
+  text-shadow:
+    0 0 48px rgba(92, 10, 10, 0.55),
+    0 0 100px rgba(74, 8, 8, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.85);
+  animation: title-flicker 8s ease-in-out infinite;
+}
+
+.horror-subtitle {
+  font-family: var(--font-horror);
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  color: #f0ecec;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes title-flicker {
+  0%, 100% { opacity: 1; }
+  94% { opacity: 1; }
+  95% { opacity: 0.88; }
+  96% { opacity: 1; }
+  97.5% { opacity: 0.92; }
+}
+
+/* ── VHS grain ── */
+.vhs-grain {
+  pointer-events: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.04;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.03) 0px,
-    transparent 1px,
-    transparent 2px
-  );
-  animation: vhsFlicker 0.15s infinite;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.045;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.03) 0px,
+      transparent 1px,
+      transparent 3px
+    );
+  animation: grain 0.1s steps(3) infinite;
 }
 
-@keyframes vhsFlicker {
-  0% { opacity: 0.04; }
-  50% { opacity: 0.02; }
-  100% { opacity: 0.05; }
+@keyframes grain {
+  0% { opacity: 0.04; transform: translate(0, 0); }
+  33% { opacity: 0.055; transform: translate(-1px, 1px); }
+  66% { opacity: 0.035; transform: translate(1px, -1px); }
+  100% { opacity: 0.045; transform: translate(0, 0); }
 }
 
-/* --- Fog Animation --- */
+/* ── Global fog drift ── */
 .fog-layer {
-  position: absolute;
-  width: 200%;
-  height: 100%;
-  top: 0;
-  left: -50%;
-  background: radial-gradient(ellipse at center, rgba(139, 0, 0, 0.08) 0%, transparent 70%);
-  animation: fogDrift 20s ease-in-out infinite alternate;
   pointer-events: none;
+  position: absolute;
+  inset: -20% -30%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(92, 10, 10, 0.06) 0%, transparent 55%);
+  animation: fog-drift 28s ease-in-out infinite alternate;
 }
 
 .fog-layer-2 {
-  animation-duration: 30s;
+  inset: -10% -20%;
+  background: radial-gradient(ellipse at 70% 40%, rgba(255, 255, 255, 0.015) 0%, transparent 50%);
+  animation-duration: 36s;
   animation-direction: alternate-reverse;
-  opacity: 0.5;
-  background: radial-gradient(ellipse at 30% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
 }
 
-@keyframes fogDrift {
-  0% { transform: translateX(-10%) translateY(-5%); }
-  100% { transform: translateX(10%) translateY(5%); }
+@keyframes fog-drift {
+  0% { transform: translate(-3%, -2%); }
+  100% { transform: translate(3%, 2%); }
 }
 
-/* --- Floating Particles --- */
-.particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(220, 20, 60, 0.4);
-  border-radius: 50%;
+/* ── Ambient blood glow (sections) ── */
+.ambient-glow {
   pointer-events: none;
-  animation: particleFloat linear infinite;
-}
-
-@keyframes particleFloat {
-  0% {
-    transform: translateY(100vh) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100px) translateX(100px);
-    opacity: 0;
-  }
-}
-
-/* --- Flickering Text Effect --- */
-.flicker-text {
-  animation: textFlicker 4s ease-in-out infinite;
-}
-
-@keyframes textFlicker {
-  0%, 100% { opacity: 1; }
-  92% { opacity: 1; }
-  93% { opacity: 0.3; }
-  94% { opacity: 1; }
-  96% { opacity: 0.7; }
-  97% { opacity: 1; }
-}
-
-/* --- Mouse Glow Effect --- */
-.mouse-glow {
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(139, 0, 0, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s;
-}
-
-/* --- Glassmorphism Card --- */
-.glass-card {
-  background: rgba(17, 17, 17, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 0, 0, 0.15);
-  border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  border-color: rgba(220, 20, 60, 0.4);
-  box-shadow: 0 0 40px rgba(139, 0, 0, 0.15), inset 0 0 40px rgba(139, 0, 0, 0.05);
-  transform: translateY(-4px);
-}
-
-/* --- Blood Glow Button --- */
-.btn-blood {
-  position: relative;
-  padding: 14px 36px;
-  background: linear-gradient(135deg, var(--color-blood), #a00000);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-blood::before {
-  content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.6s;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(92, 10, 10, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(74, 8, 8, 0.05) 0%, transparent 55%);
 }
 
-.btn-blood:hover::before {
-  left: 100%;
-}
-
-.btn-blood:hover {
-  box-shadow: 0 0 30px rgba(139, 0, 0, 0.5), 0 0 60px rgba(139, 0, 0, 0.2);
-  transform: translateY(-2px);
-}
-
-/* --- Ghost Button --- */
-.btn-ghost {
-  padding: 14px 36px;
-  background: transparent;
-  color: var(--color-text-primary);
-  border: 1px solid rgba(139, 0, 0, 0.5);
-  border-radius: 8px;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-ghost:hover {
-  background: rgba(139, 0, 0, 0.15);
-  border-color: var(--color-blood-bright);
-  box-shadow: 0 0 20px rgba(139, 0, 0, 0.2);
-  transform: translateY(-2px);
-}
-
-/* --- Section Title --- */
-.section-title {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.section-subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--color-text-secondary);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-/* --- Blood Line Divider --- */
+/* ── Accent line ── */
 .blood-line {
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-blood-bright), transparent);
-  margin: 0 auto;
-}
-
-/* --- Parallax Section --- */
-.parallax-section {
-  position: relative;
-  overflow: hidden;
-}
-
-/* --- Navbar Styles --- */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar-scrolled {
-  background: rgba(10, 10, 10, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(139, 0, 0, 0.2);
-}
-
-.nav-link {
-  position: relative;
-  color: var(--color-text-secondary);
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 8px 0;
-  transition: color 0.3s;
-  cursor: pointer;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
   height: 1px;
-  background: var(--color-blood-bright);
-  transition: width 0.3s;
+  background: linear-gradient(90deg, transparent, var(--color-blood-glow), transparent);
 }
 
-.nav-link:hover {
-  color: var(--color-blood-bright);
+/* ── Steam thumbnail strip ── */
+.thumb-strip {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(107, 15, 15, 0.4) transparent;
 }
 
-.nav-link:hover::after {
-  width: 100%;
+.thumb-strip::-webkit-scrollbar {
+  height: 5px;
 }
 
-.nav-link.active {
-  color: var(--color-blood-bright);
+.thumb-strip::-webkit-scrollbar-thumb {
+  background: rgba(107, 15, 15, 0.4);
+  border-radius: 999px;
 }
 
-.nav-link.active::after {
-  width: 100%;
+/* ── Horror cards ── */
+.horror-card {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(14, 14, 14, 0.72);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* --- Hero Section --- */
-.hero-section {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-video-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.3) saturate(0.7);
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 10, 10, 0.4) 0%,
-    rgba(10, 10, 10, 0.2) 40%,
-    rgba(10, 10, 10, 0.6) 80%,
-    rgba(10, 10, 10, 1) 100%
-  );
-}
-
-.hero-vignette {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 10, 0.8) 100%);
-}
-
-.hero-title {
-  font-family: var(--font-heading);
-  font-weight: 900;
-  font-size: clamp(3.5rem, 10vw, 8rem);
-  letter-spacing: 12px;
-  text-transform: uppercase;
-  line-height: 1;
-  text-shadow: 0 0 60px rgba(139, 0, 0, 0.5), 0 0 120px rgba(139, 0, 0, 0.2);
-}
-
-.hero-title-thai {
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  letter-spacing: 8px;
-  color: var(--color-blood-bright);
-  font-weight: 300;
-  margin-top: 8px;
-}
-
-/* --- Feature Card --- */
-.feature-card {
-  background: rgba(17, 17, 17, 0.5);
-  border: 1px solid rgba(139, 0, 0, 0.1);
-  border-radius: 12px;
-  padding: 28px;
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.feature-card:hover {
-  border-color: rgba(220, 20, 60, 0.3);
-  background: rgba(139, 0, 0, 0.08);
-  box-shadow: 0 0 30px rgba(139, 0, 0, 0.1);
-  transform: translateY(-6px);
-}
-
-.feature-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 16px;
-  color: var(--color-blood-bright);
-}
-
-/* --- Platform Card --- */
-.platform-card {
-  background: rgba(17, 17, 17, 0.6);
-  border: 1px solid rgba(139, 0, 0, 0.15);
-  border-radius: 16px;
-  padding: 40px;
-  text-align: center;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.platform-card::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, transparent 40%, var(--color-blood) 100%);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.platform-card:hover::before {
-  opacity: 1;
-}
-
-.platform-card:hover {
-  box-shadow: 0 0 50px rgba(139, 0, 0, 0.3), 0 20px 60px rgba(0, 0, 0, 0.5);
-  transform: translateY(-8px) scale(1.02);
-  border-color: var(--color-blood);
-}
-
-/* --- Social Icon --- */
-.social-icon-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  background: rgba(17, 17, 17, 0.7);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 0, 0, 0.15);
-  border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-.social-icon-card:hover {
-  border-color: var(--color-blood-bright);
-  box-shadow: 0 0 30px rgba(220, 20, 60, 0.3), 0 0 60px rgba(139, 0, 0, 0.15);
-  transform: translateY(-6px) scale(1.1);
-  background: rgba(139, 0, 0, 0.15);
-}
-
-.social-icon-card img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  filter: grayscale(100%) brightness(0.7);
-  transition: filter 0.4s;
-}
-
-.social-icon-card:hover img {
-  filter: grayscale(0%) brightness(1.2);
-}
-
-/* --- Team Card --- */
-.team-card {
-  background: rgba(17, 17, 17, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 0, 0, 0.12);
-  border-radius: 20px;
-  padding: 32px 24px;
-  text-align: center;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.team-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--color-blood-bright), transparent);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.team-card:hover::after {
-  opacity: 1;
-}
-
-.team-card:hover {
-  border-color: rgba(220, 20, 60, 0.3);
-  box-shadow: 0 0 40px rgba(139, 0, 0, 0.15), 0 20px 40px rgba(0, 0, 0, 0.3);
-  transform: translateY(-8px);
-}
-
-.team-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(139, 0, 0, 0.3);
-  margin: 0 auto 16px;
-  transition: border-color 0.4s;
-}
-
-.team-card:hover .team-avatar {
-  border-color: var(--color-blood-bright);
-  box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
-}
-
-/* --- Timeline --- */
-.timeline-item {
-  position: relative;
-  padding-left: 40px;
-  padding-bottom: 40px;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-blood-bright);
-  box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
-}
-
-.timeline-item::after {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 24px;
-  width: 2px;
-  height: calc(100% - 24px);
-  background: linear-gradient(180deg, rgba(139, 0, 0, 0.4), transparent);
-}
-
-.timeline-item:last-child::after {
-  display: none;
-}
-
-/* --- Image Gallery Hover --- */
-.gallery-image {
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-.gallery-image:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 40px rgba(139, 0, 0, 0.2);
-}
-
-.gallery-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s;
-  filter: brightness(0.8) saturate(0.8);
-}
-
-.gallery-image:hover img {
-  transform: scale(1.08);
-  filter: brightness(1) saturate(1);
-}
-
-/* --- Mobile Hamburger --- */
-.hamburger-line {
-  width: 24px;
-  height: 2px;
-  background: var(--color-text-primary);
-  transition: all 0.3s;
-}
-
-/* --- CTA Section Background --- */
-.cta-bg {
-  background: linear-gradient(
-    135deg,
-    rgba(139, 0, 0, 0.1) 0%,
-    rgba(10, 10, 10, 1) 50%,
-    rgba(139, 0, 0, 0.08) 100%
-  );
-}
-
-/* --- Image Lightbox --- */
-.lightbox-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: zoom-out;
-}
-
-.lightbox-overlay img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-  .hero-title {
-    letter-spacing: 6px;
-  }
-  
-  .hero-title-thai {
-    letter-spacing: 4px;
-  }
-  
-  .social-icon-card {
-    width: 64px;
-    height: 64px;
-  }
-  
-  .social-icon-card img {
-    width: 28px;
-    height: 28px;
-  }
+.horror-card:hover {
+  border-color: rgba(107, 15, 15, 0.28);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 28px rgba(92, 10, 10, 0.08);
 }

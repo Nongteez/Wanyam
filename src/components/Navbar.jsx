@@ -1,104 +1,103 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import Container from './layout/Container'
+import { NAV_LINKS } from '../data/site'
 import wanyamLogo from '../assets/Logo/WANYAM-LOGO-GAME.png'
 
-const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'distribute', label: 'Distribute' },
-  { id: 'contact', label: 'Contact' },
-  { id: 'team', label: 'Team' },
-]
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 
-export default function Navbar({ activeSection }) {
+export default function Navbar({ activeId }) {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const scrollTo = (id) => {
-    setMobileOpen(false)
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    }
+  const navigate = (id) => {
+    setOpen(false)
+    scrollToSection(id)
   }
 
   return (
-    <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`} id="navbar">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <motion.button
-          onClick={() => scrollTo('home')}
-          className="flex items-center gap-3 bg-transparent border-none cursor-pointer"
-          whileHover={{ scale: 1.02 }}
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+        scrolled ? 'border-b border-white/5 bg-[#070707]/92 backdrop-blur-xl' : 'bg-transparent'
+      }`}
+    >
+      <Container className="flex h-16 items-center justify-between md:h-[4.5rem]">
+        <button
+          type="button"
+          onClick={() => navigate('home')}
+          className="flex items-center gap-3 border-0 bg-transparent p-0 cursor-pointer"
         >
-          <img
-            src={wanyamLogo}
-            alt="WANYAM Logo"
-            className="h-8 w-auto"
-          />
-          <div className="flex flex-col leading-none">
-            <span className="font-['Outfit'] font-bold text-sm tracking-[4px] text-white uppercase">
-              WANYAM
-            </span>
-            <span className="font-['Outfit'] text-[10px] tracking-[2px] text-[#dc143c]">
-              วันยาม
-            </span>
-          </div>
-        </motion.button>
+          <img src={wanyamLogo} alt="WANYAM" className="h-8 w-auto md:h-9" />
+          <span className="hidden sm:flex flex-col items-start leading-none">
+            <span className="font-['Cinzel'] text-sm font-bold tracking-[0.32em] text-[#5c0a0a]">WANYAM</span>
+            <span className="font-['Cinzel'] text-[10px] tracking-[0.22em] text-[#e8e4e4]">วันยาม</span>
+          </span>
+        </button>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+          {NAV_LINKS.map((link) => (
             <button
-              key={item.id}
-              onClick={() => scrollTo(item.id)}
-              className={`nav-link bg-transparent border-none ${activeSection === item.id ? 'active' : ''}`}
+              key={link.id}
+              type="button"
+              onClick={() => navigate(link.id)}
+              className={`relative border-0 bg-transparent p-0 font-['Outfit'] text-[11px] font-medium uppercase tracking-[0.22em] transition-colors cursor-pointer ${
+                activeId === link.id ? 'text-[#8b1515]' : 'text-[#777] hover:text-[#e8e4e4]'
+              }`}
             >
-              {item.label}
+              {link.label}
+              {activeId === link.id && (
+                <span className="absolute -bottom-1 left-0 h-px w-full bg-[#6b0f0f]" />
+              )}
             </button>
           ))}
-        </div>
+        </nav>
 
-        {/* Mobile Toggle */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden bg-transparent border-none text-white cursor-pointer p-2"
+          type="button"
+          className="border-0 bg-transparent p-2 text-white md:hidden cursor-pointer"
+          onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
+          aria-expanded={open}
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
-      </div>
+      </Container>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {mobileOpen && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[rgba(10,10,10,0.95)] backdrop-blur-xl border-t border-[rgba(139,0,0,0.2)]"
+            className="border-t border-white/5 bg-[#070707]/95 backdrop-blur-xl md:hidden overflow-hidden"
           >
-            <div className="flex flex-col items-center py-6 gap-4">
-              {navItems.map((item) => (
+            <Container className="flex flex-col items-center gap-5 py-6">
+              {NAV_LINKS.map((link) => (
                 <button
-                  key={item.id}
-                  onClick={() => scrollTo(item.id)}
-                  className={`nav-link bg-transparent border-none ${activeSection === item.id ? 'active' : ''}`}
+                  key={link.id}
+                  type="button"
+                  onClick={() => navigate(link.id)}
+                  className={`border-0 bg-transparent font-['Outfit'] text-xs uppercase tracking-[0.22em] cursor-pointer ${
+                    activeId === link.id ? 'text-[#8b1515]' : 'text-[#777]'
+                  }`}
                 >
-                  {item.label}
+                  {link.label}
                 </button>
               ))}
-            </div>
+            </Container>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   )
 }

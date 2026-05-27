@@ -1,51 +1,41 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import GameplayGallery from './components/GameplayGallery'
-import Distribute from './components/Distribute'
-import Contact from './components/Contact'
-import Team from './components/Team'
-import Studio from './components/Studio'
-import Awards from './components/Awards'
-import Investment from './components/Investment'
 import Footer from './components/Footer'
-import VHSOverlay from './components/VHSOverlay'
-import MouseGlow from './components/MouseGlow'
-import Particles from './components/Particles'
+import VHSOverlay from './components/effects/VHSOverlay'
+import FogOverlay from './components/effects/FogOverlay'
+import Modal from './components/ui/Modal'
+import Hero from './sections/Hero'
+import About from './sections/About'
+import Features from './sections/Features'
+import Gallery from './sections/Gallery'
+import Distribute from './sections/Distribute'
+import Contact from './sections/Contact'
+import Team from './sections/Team'
+import Studio from './sections/Studio'
+import Awards from './sections/Awards'
+import Investment from './sections/Investment'
+import { useScrollSpy } from './hooks/useScrollSpy'
+import { NAV_LINKS } from './data/site'
+import heroVideo from './assets/VDO/Intro.mp4'
 
-function App() {
-  const [activeSection, setActiveSection] = useState('home')
+const SECTION_IDS = NAV_LINKS.map((l) => l.id)
 
-  useEffect(() => {
-    const sections = ['home', 'about', 'distribute', 'contact', 'team']
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(sectionId)
-            break
-          }
-        }
-      }
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+export default function App() {
+  const activeId = useScrollSpy(SECTION_IDS)
+  const [trailerOpen, setTrailerOpen] = useState(false)
 
   return (
-    <div className="relative min-h-screen bg-[#0a0a0a]">
+    <div className="relative min-h-screen bg-[#070707] text-[#ddd8d8]">
+      <div className="ambient-glow fixed inset-0 z-0" aria-hidden="true" />
       <VHSOverlay />
-      <MouseGlow />
-      <Particles />
-      <Navbar activeSection={activeSection} />
+      <FogOverlay />
+      <Navbar activeId={activeId} />
+
       <main>
-        <Hero />
+        <Hero onOpenTrailer={() => setTrailerOpen(true)} />
         <About />
-        <GameplayGallery />
+        <Features />
+        <Gallery />
         <Distribute />
         <Contact />
         <Team />
@@ -53,9 +43,12 @@ function App() {
         <Awards />
         <Investment />
       </main>
+
       <Footer />
+
+      <Modal open={trailerOpen} onClose={() => setTrailerOpen(false)} title="WANYAM — Trailer">
+        <video src={heroVideo} controls autoPlay className="aspect-video w-full rounded-xl bg-black" />
+      </Modal>
     </div>
   )
 }
-
-export default App
