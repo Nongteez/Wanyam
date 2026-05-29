@@ -127,16 +127,16 @@ export const AWARDS = [
     description: 'Recognized among the Top 5 Playable Demo teams and awarded a 25,000 THB development grant, with participation in a 3-month incubation program to advance WanYam from prototype to production-ready demo.',
   },
   {
-    year: '-',
-    title: '-',
-    status: '-',
-    description: '-',
+    year: '2026',
+    title: 'Terminal 21 Games Festival 2026 ',
+    status: 'Showcase',
+    description: 'Featured as part of the Korat Frontier Game Incubation showcase, presenting WANYAM to players, creators, and industry professionals.',
   },
   {
-    year: '-',
-    title: '-',
-    status: '-',
-    description: '-',
+    year: '2026',
+    title: 'Coming Soon',
+    status: 'ShowCase',
+    description: 'Coming Soon 2026',
   },
 ]
 
