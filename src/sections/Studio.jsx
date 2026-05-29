@@ -11,7 +11,19 @@ export default function Studio() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <div className="flex flex-col items-center lg:items-start">
-              <img src={ininLogo} alt="ININ Studio" className="h-28 w-28 object-contain md:h-32 md:w-32" />
+              <a
+                href="https://inin-platform.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit ININ Studio Website"
+                className="inline-block cursor-pointer transition-all duration-300 ease-out hover:scale-[1.08] hover:drop-shadow-[0_0_32px_rgba(107,15,15,0.5)]"
+              >
+                <img
+                  src={ininLogo}
+                  alt="ININ Studio"
+                  className="h-28 w-28 object-contain md:h-32 md:w-32"
+                />
+              </a>
               <div className="mt-10 grid w-full max-w-md grid-cols-3 gap-6">
                 {STUDIO_STATS.map((stat) => (
                   <div key={stat.label} className="text-center lg:text-left">
@@ -33,12 +45,11 @@ export default function Studio() {
               </h2>
               <div className="mt-5 h-px w-16 bg-gradient-to-r from-[#6b0f0f] to-transparent" />
               <p className="mt-6 text-sm leading-relaxed text-[#999] md:text-[15px]">
-                ININ Studio is an independent game development studio focused on immersive storytelling,
-                psychological horror, and Thai-inspired interactive experiences.
+              ININ Studio is an independent game and interactive media studio dedicated to crafting innovative,
+              digital experiences through storytelling, technology, and creative design..
               </p>
               <p className="mt-4 text-sm leading-relaxed text-[#777]">
-                From atmosphere and sound to narrative design, every project is built to feel handcrafted,
-                cinematic, and culturally grounded.
+              Our work spans a variety of projects, from FMV (Full Motion Video) platforms that combine cinematic narratives with user interaction, to original titles such as WanYam, a horror game inspired by Thai culture, folklore, and local beliefs.
               </p>
             </div>
           </Reveal>

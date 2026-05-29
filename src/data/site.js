@@ -11,14 +11,14 @@ import discordIcon from '../assets/Contact/Logo_Discord.png'
 import youtubeIcon from '../assets/Contact/Logo_Youtube.png'
 import steamIcon from '../assets/Contact/Steam.png'
 import epicIcon from '../assets/Contact/EPIGAME.png'
-import shot1 from '../assets/m1.jpg'
-import shot2 from '../assets/m2.jpg'
-import shot3 from '../assets/m3.jpg'
-import shot4 from '../assets/m4.jpg'
-import shot5 from '../assets/m5.jpg'
-import shot6 from '../assets/m6.jpg'
-import shot7 from '../assets/m7.jpg'
-import shot8 from '../assets/m8.jpg'
+import shot1 from '../assets/m1.png'
+import shot2 from '../assets/m2.png'
+import shot3 from '../assets/m3.png'
+import shot4 from '../assets/m4.png'
+import shot5 from '../assets/m5.png'
+import shot6 from '../assets/m6.png'
+import shot7 from '../assets/m7.png'
+import shot8 from '../assets/m8.png'
 
 export const NAV_LINKS = [
   { id: 'home', label: 'Home' },
@@ -31,20 +31,24 @@ export const NAV_LINKS = [
 
 export const FEATURES = [
   {
-    title: 'Psychological Horror',
-    description: 'Fear that builds through tension, isolation, and the unknown.',
+    title: 'Night Watch Survival',
+    description:
+      'Survive five nights as a hired house guard while facing increasingly dangerous supernatural threats.',
   },
   {
-    title: 'Thai Paranormal Folklore',
-    description: 'Authentic legends woven into a grounded supernatural narrative.',
+    title: 'Thai Folklore Spirits',
+    description:
+      'Encounter terrifying spirits inspired by Thai folklore, each with unique behaviors, stories, and weaknesses.',
   },
   {
-    title: 'Immersive Atmosphere',
-    description: 'Sound, light, and space designed to pull you into the house.',
+    title: 'CCTV & Resource Management',
+    description:
+      'Monitor security cameras, manage limited resources, and make critical decisions to stay alive until dawn.',
   },
   {
-    title: 'Story-Driven Gameplay',
-    description: 'Every patrol and recording reveals another piece of the truth.',
+    title: 'House of Secrets',
+    description:
+      'Explore the house, uncover its dark past, and reveal the truth hidden behind every supernatural encounter.',
   },
 ]
 
@@ -75,7 +79,7 @@ export const PLATFORMS = [
 ]
 
 export const SOCIALS = [
-  { name: 'Instagram', icon: instagramIcon, url: 'https://www.instagram.com/' },
+  { name: 'Instagram', icon: instagramIcon, url: 'https://www.instagram.com/ininstudio_' },
   { name: 'Facebook', icon: facebookIcon, url: 'https://www.facebook.com/' },
   { name: 'TikTok', icon: tiktokIcon, url: 'https://www.tiktok.com/' },
   { name: 'Discord', icon: discordIcon, url: 'https://discord.com/' },
@@ -86,60 +90,60 @@ export const TEAM = [
   {
     name: 'SATJAWAT WONSANTHIE',
     role: 'Chief Executive Officer',
-    quote: 'Building the future of interactive storytelling.',
+    quote: 'Leading the vision behind WanYam and its future.',
     image: person1,
   },
   {
-    name: 'APISIT KHAMPHONG',
-    role: 'Creative Director',
-    quote: 'Crafting immersive horror from Thai folklore.',
+    name: 'PANNAWIT SONPANG',
+    role: 'Designer , Art Director',
+    quote: 'Crafting the visual identity and atmosphere of fear.',
     image: person2,
   },
   {
-    name: 'THANAPORN SIRILAK',
-    role: 'Lead Developer',
-    quote: 'Engineering the systems behind the fear.',
+    name: 'SETTAPON CHOEDPHUTSA',
+    role: 'Develper , Designer',
+    quote: 'Bringing ideas to life through code and design.',
     image: person3,
   },
   {
-    name: 'NATTAWUT PRASERTSRI',
-    role: 'Art Director',
-    quote: 'Designing the visual language of dread.',
+    name: 'WASAN DONGKEND',
+    role: 'Developer',
+    quote: 'Engineering the systems that drive the experience.',
     image: person4,
   },
   {
-    name: 'KAMONPAT THONGBAI',
-    role: 'Sound Designer',
-    quote: 'Shaping silence, creaks, and whispers.',
+    name: 'WATCHARIN PHUSOMPONG',
+    role: 'Developer',
+    quote: 'Building reliable solutions behind every interaction.',
     image: person5,
   },
 ]
 
 export const AWARDS = [
   {
-    year: '2024',
-    title: 'Indie Game Development Grant',
+    year: '2026',
+    title: 'Korat Frontier Game 2026',
     status: 'Awarded',
-    description: 'Funding support for innovative indie horror development in Thailand.',
+    description: 'Recognized among the Top 5 Playable Demo teams and awarded a 25,000 THB development grant, with participation in a 3-month incubation program to advance WanYam from prototype to production-ready demo.',
   },
   {
-    year: '2025',
-    title: 'Thailand Digital Innovation Support',
-    status: 'Selected',
-    description: 'National program backing Thai creative technology studios.',
+    year: '-',
+    title: '-',
+    status: '-',
+    description: '-',
   },
   {
-    year: '2025',
-    title: 'Horror Game Showcase Selection',
-    status: 'Featured',
-    description: 'Highlighted among upcoming psychological horror titles.',
+    year: '-',
+    title: '-',
+    status: '-',
+    description: '-',
   },
 ]
 
 export const STUDIO_STATS = [
   { label: 'Games in Development', value: '2+' },
-  { label: 'Team Members', value: '10+' },
-  { label: 'Countries Reached', value: '15+' },
+  { label: 'Team Members', value: '5+' },
+  { label: 'Countries Reached', value: '1+' },
 ]
 
 export const ABOUT_IMAGE = heroStill

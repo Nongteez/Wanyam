@@ -41,7 +41,15 @@ body {
 }
 
 section[id] {
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: 1rem;
+  scroll-margin-bottom: 5.5rem;
+}
+
+@media (min-width: 1024px) {
+  section[id] {
+    scroll-margin-top: 5.5rem;
+    scroll-margin-bottom: 0;
+  }
 }
 
 /* ── Horror typography ── */
@@ -51,9 +59,10 @@ section[id] {
   letter-spacing: 0.18em;
   color: var(--color-blood);
   text-shadow:
-    0 0 48px rgba(92, 10, 10, 0.55),
-    0 0 100px rgba(74, 8, 8, 0.25),
-    0 2px 6px rgba(0, 0, 0, 0.85);
+    0 0 40px rgba(92, 10, 10, 0.65),
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 20px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(74, 8, 8, 0.35);
   animation: title-flicker 8s ease-in-out infinite;
 }
 
@@ -61,8 +70,19 @@ section[id] {
   font-family: var(--font-horror);
   font-weight: 400;
   letter-spacing: 0.42em;
-  color: #f0ecec;
-  text-shadow: 0 0 24px rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.6);
+  color: #f5f2f2;
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 2px 14px rgba(0, 0, 0, 0.75),
+    0 0 28px rgba(255, 255, 255, 0.12);
+}
+
+.hero-eyebrow {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85), 0 0 16px rgba(0, 0, 0, 0.5);
+}
+
+.hero-tagline {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9), 0 2px 20px rgba(0, 0, 0, 0.65);
 }
 
 @keyframes title-flicker {
@@ -153,6 +173,10 @@ section[id] {
 .thumb-strip::-webkit-scrollbar-thumb {
   background: rgba(107, 15, 15, 0.4);
   border-radius: 999px;
+}
+
+.thumb-strip {
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ── Horror cards ── */

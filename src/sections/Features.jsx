@@ -1,11 +1,11 @@
-import { Brain, BookOpen, Ghost, Wind } from 'lucide-react'
+import { Cctv, Ghost, Home, Moon } from 'lucide-react'
 import Container from '../components/layout/Container'
 import Section from '../components/layout/Section'
 import SectionHeader from '../components/layout/SectionHeader'
 import Reveal from '../components/ui/Reveal'
 import { FEATURES } from '../data/site'
 
-const icons = [Brain, Ghost, Wind, BookOpen]
+const icons = [Moon, Ghost, Cctv, Home]
 
 export default function Features() {
   return (
@@ -13,8 +13,8 @@ export default function Features() {
       <Container>
         <SectionHeader
           eyebrow="Core Experience"
-          title="What Defines WANYAM"
-          description="Four pillars that shape the atmosphere, pacing, and dread."
+          title="Survive Five Nights of Horror"
+          description="Take on a seemingly simple house-watching job and uncover the terrifying secrets hidden within."
         />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
