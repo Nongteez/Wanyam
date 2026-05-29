@@ -31,18 +31,17 @@ export default function About() {
           <Reveal delay={0.1}>
             <div className="max-w-xl">
               <p className="font-['Inter'] text-[11px] uppercase tracking-[0.28em] text-[#666]">
-                Thai psychological horror
+                Thai Game horror
               </p>
               <h3 className="mt-4 font-['Outfit'] text-2xl font-semibold leading-snug text-white md:text-3xl">
                 You are the night guard.
                 <span className="text-[#6b0f0f]"> The house is not empty.</span>
               </h3>
               <p className="mt-6 text-sm leading-relaxed text-[#999] md:text-[15px]">
-                WANYAM blends patrol gameplay and surveillance horror with story-driven discovery.
-                Rooted in Thai paranormal folklore, every shift pulls you deeper into what the walls remember.
+              You were hired to watch a house for five nights. What seemed like a simple job soon turns into a fight for survival as strange events begin to unfold behind every door.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-[#777]">
-                Developed by ININ Studio — an independent team crafting cinematic, culturally grounded horror.
+              WANYAM is a story-driven survival horror experience that combines surveillance, resource management, and psychological tension. Inspired by Thai folklore and supernatural beliefs, each night reveals new horrors hidden within the house.
               </p>
             </div>
           </Reveal>

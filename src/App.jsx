@@ -25,7 +25,7 @@ export default function App() {
   const [trailerOpen, setTrailerOpen] = useState(false)
 
   return (
-    <div className="relative min-h-screen bg-[#070707] text-[#ddd8d8]">
+    <div className="relative min-h-screen bg-[#070707] pb-[88px] text-[#ddd8d8] lg:pb-0">
       <div className="ambient-glow fixed inset-0 z-0" aria-hidden="true" />
       <VHSOverlay />
       <FogOverlay />
